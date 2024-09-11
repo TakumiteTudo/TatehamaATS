@@ -14,6 +14,7 @@ namespace TatehamaATS.Diadata
                     //元シナリオ：列番不定　大道寺　→館　浜　／内容：着線２番振替
                     TrainState.RouteDatabase.CircuitList[35].ChengeName("館浜下り場内1LB");
                     break;
+
                 case "回7281":
                 case "7281B":
                 case "回1195":
@@ -27,6 +28,7 @@ namespace TatehamaATS.Diadata
                     //元シナリオ：列番不定　江ノ原検→館　浜　／内容：着線２番振替 
                     TrainState.RouteDatabase.CircuitList[34].ChengeName("館浜下り場内1LB");
                     break;
+
                 case "7180C":
                 case "7282C":
                 case "1180C":
@@ -37,6 +39,17 @@ namespace TatehamaATS.Diadata
                     TrainState.RouteDatabase.CircuitList[0].ChengeName("館浜下り場内1LB");
                     TrainState.RouteDatabase.CircuitList[1].ChengeName("館浜上り出発2R");
                     break;
+
+                case "回7291":
+                    //92年 4300展示回送用　江ノ原検→館　浜　／内容：着線３番振替 
+                    TrainState.RouteDatabase.CircuitList[34].ChengeName("館浜下り場内1LC");
+                    break;
+                case "回7200":
+                    //92年 4300展示回送用　館　浜　→発車 ／内容：発車３番振替 
+                    TrainState.RouteDatabase.CircuitList[0].ChengeName("館浜下り場内1LB");
+                    TrainState.RouteDatabase.CircuitList[1].ChengeName("館浜上り出発3R");
+                    break;
+
             }
         }
     }

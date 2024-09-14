@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic.Devices;
 using System.Diagnostics;
 using TatehamaATS.Exceptions;
+using TrainCrewWrapper;
 using TrainCrew;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
@@ -14,6 +15,7 @@ namespace TatehamaATS
     {
         public event EventHandler Init;
         public static bool EB;
+        private readonly TrainCrewAPI trainCrewInput;
         private TimeSpan ShiftTime = TimeSpan.FromHours(10);
         private Label Clock;
         internal Relay(Label clock)
@@ -21,7 +23,7 @@ namespace TatehamaATS
             Clock = clock;
             try
             {
-                TrainCrewInput.Init();
+                trainCrewInput = TrainCrewAPI.Instance;
             }
             catch (Exception ex)
             {
@@ -85,11 +87,11 @@ namespace TatehamaATS
             {
                 try
                 {
-                    var TC_TrainState = TrainCrewInput.GetTrainState();
+                    var TC_TrainState = trainCrewInput.GetTrainState();
 
                     try
                     {
-                        TrainState.gameScreen = TrainCrewInput.gameState.gameScreen;
+                        TrainState.gameScreen = trainCrewInput.GetGameState().gameScreen;
                     }
                     catch (Exception ex)
                     {
@@ -163,22 +165,22 @@ namespace TatehamaATS
                             case "3300":
                                 if (EB)
                                 {
-                                    TrainCrewInput.SetATO_Notch(-8);
+                                    trainCrewInput.SetATO_Notch(-8);
                                 }
                                 else
                                 {
-                                    TrainCrewInput.SetATO_Notch(0);
+                                    trainCrewInput.SetATO_Notch(0);
                                 }
                                 break;
                             case "3020":
                             case "3000":
                                 if (EB)
                                 {
-                                    TrainCrewInput.SetATO_Notch(-9);
+                                    trainCrewInput.SetATO_Notch(-9);
                                 }
                                 else
                                 {
-                                    TrainCrewInput.SetATO_Notch(0);
+                                    trainCrewInput.SetATO_Notch(0);
                                 }
                                 break;
                             default:

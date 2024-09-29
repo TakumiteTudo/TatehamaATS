@@ -1,0 +1,129 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TrainCrew;
+
+namespace TatehamaATS.ATSOperation
+{
+    /// <summary>
+    /// 地上子情報クラス
+    /// </summary>
+    internal static class SignalBeacons
+    {
+        /// <summary> 最小結合範囲 </summary>
+        private const float MINIMUM_COUPLING_RANGE = 0.35f;
+        /// <summary> 最大結合範囲 </summary>
+        private const float MAXIMUM_COUPLING_RANGE = 2.00f;
+        /// <summary> 直前の信号機名称 </summary>
+        private static string? lastSignalName = null;
+        /// <summary> 直前の信号機進入時刻 </summary>
+        private static DateTime lastSignalTimestamp;
+
+        /// <summary>
+        /// 地上子結合中判定
+        /// </summary>
+        /// <param name="speed"></param>
+        /// <param name="beaconDistance"></param>
+        /// <returns></returns>
+        internal static bool IsCouplingBeacon(float speed, float beaconDistance)
+        {
+            try
+            {
+                //地上子結合範囲算出
+                float couplingRange = CustomMath.Lerp(0.0f, MINIMUM_COUPLING_RANGE, 120.0f, MAXIMUM_COUPLING_RANGE, Math.Abs(speed));
+                //地上子結合判定
+                if ((0.0f <= Math.Abs(beaconDistance)) && (Math.Abs(beaconDistance) <= couplingRange))
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// SignalInfoクラスをSignalBeaconsInfoクラスに変換
+        /// </summary>
+        /// <param name="signalInfoList"></param>
+        /// <returns></returns>
+        internal static List<SignalBeaconsInfo>? ConvertSignalBeacons(List<SignalInfo> signalInfoList, string signalPhase, float nowSpeed)
+        {
+            try
+            {
+                if (signalInfoList?.Count > 0)
+                {
+                    List<SignalBeaconsInfo> SignalBeaconsInfoList = new List<SignalBeaconsInfo>();
+
+                    foreach (var signal in signalInfoList)
+                    {
+                        foreach (var beacon in signal.beacons)
+                        {
+                            SignalBeaconsInfo newBeacon = new SignalBeaconsInfo(
+                                signal.name,
+                                signalPhase,
+                                signal.distance,
+                                beacon.type,
+                                beacon.speed,
+                                beacon.distance,
+                                IsCouplingBeacon((float)nowSpeed, beacon.distance)
+                            );
+
+                            //直前の信号機名称と比較
+                            if (lastSignalName == signal.name)
+                            {
+                                //経過時間を計算
+                                newBeacon.SetInitialTimestamp(lastSignalTimestamp);
+                                newBeacon.UpdateElapsedTime();
+                            }
+                            else
+                            {
+                                //新しい信号機名称の場合は呼び出し時刻を更新
+                                lastSignalName = signal.name;
+                                lastSignalTimestamp = DateTime.Now;
+                            }
+                            SignalBeaconsInfoList.Add(newBeacon);
+                        }
+                    }
+
+                    //BeaconDistanceを基準に昇順へ並べ替え
+                    SignalBeaconsInfoList.Sort((s1, s2) => s1.BeaconDistance.CompareTo(s2.BeaconDistance));
+
+                    return SignalBeaconsInfoList;
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 結合した地上子情報のインデックスを取得
+        /// </summary>
+        internal static int GetCoupledSignalBeaconIndex(List<SignalBeaconsInfo> signals)
+        {
+            try
+            {
+                for (int i = 0; i < signals.Count; i++)
+                {
+                    if (signals[i].IsCoupling)
+                    {
+                        return i;
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return -1;
+        }
+    }
+}

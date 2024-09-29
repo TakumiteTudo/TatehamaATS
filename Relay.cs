@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic.Devices;
 using System.Diagnostics;
+using TatehamaATS.ATSOperation;
 using TatehamaATS.Exceptions;
 using TrainCrew;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
@@ -16,9 +17,13 @@ namespace TatehamaATS
         public static bool EB;
         private TimeSpan ShiftTime = TimeSpan.FromHours(10);
         private Label Clock;
-        internal Relay(Label clock)
+        private CalcATS CalcATS;
+        private string OldTrackName = "None";
+
+        internal Relay(Label clock, CalcATS calcATS)
         {
             Clock = clock;
+            CalcATS = calcATS;
             try
             {
                 TrainCrewInput.Init();
@@ -86,6 +91,7 @@ namespace TatehamaATS
                 try
                 {
                     var TC_TrainState = TrainCrewInput.GetTrainState();
+                    TrainCrewInput.RequestData(DataRequest.Signal);
 
                     try
                     {
@@ -125,6 +131,7 @@ namespace TatehamaATS
                             }
                             MainWindow.retsuban?.Init();
                             TrainState.init();
+                            CalcATS.ResetATS();
                         }
                     }
                     else
@@ -161,7 +168,7 @@ namespace TatehamaATS
                             case "4000":
                             case "3300V":
                             case "3300":
-                                if (EB)
+                                if (EB || TrainState.ATSEmergencyBrake)
                                 {
                                     TrainCrewInput.SetATO_Notch(-8);
                                 }
@@ -172,7 +179,7 @@ namespace TatehamaATS
                                 break;
                             case "3020":
                             case "3000":
-                                if (EB)
+                                if (EB || TrainState.ATSEmergencyBrake)
                                 {
                                     TrainCrewInput.SetATO_Notch(-9);
                                 }
@@ -212,13 +219,53 @@ namespace TatehamaATS
                     //現在のATS表示器取得
                     try
                     {
+                        string atsSpeed = (TrainState.ATSLimitSpeed < float.Parse(TC_TrainState.ATS_Speed)) ? TrainState.ATSLimitSpeed.ToString("F0") : TC_TrainState.ATS_Speed;
+                        string atsState = TrainState.ATSEmergencyBrake ? "EB" : TC_TrainState.ATS_State;
+
                         //TrainState.TC_ATSDisplay = new ATSDisplay(TC_TrainState.ATS_Class, TC_TrainState.ATS_Speed, [TC_TrainState.ATS_State]);
-                        TrainState.ATSDisplay?.SetLED(TC_TrainState.ATS_Class, TC_TrainState.ATS_Speed);
-                        TrainState.ATSDisplay?.AddState(TC_TrainState.ATS_State);
+                        TrainState.ATSDisplay?.SetLED(TC_TrainState.ATS_Class, atsSpeed);
+                        TrainState.ATSDisplay?.AddState(atsState);
                     }
                     catch (Exception ex)
                     {
                         new TCSideATSDataAbnormalException(3, "Relay.cs@Elapse()", ex);
+                    }
+
+                    //信号機地上子情報取得
+                    try
+                    {
+                        //次閉塞区間の信号機地上子情報を取得
+                        string signalPhase = (TrainState.NextTrack != null) ? TrainState.NextTrack.Signal.ToString() : "R";
+                        TrainState.SignalBeaconsList
+                            = SignalBeacons.ConvertSignalBeacons(TrainCrewInput.signals, signalPhase, TC_TrainState.Speed);
+
+                        //地上子情報を取得
+                        if ((TrainState.SignalBeaconsList != null) && (TrainState.SignalBeaconsList.Count > 0))
+                        {
+                            string strName = OldTrackName;
+                            OldTrackName = (TrainState.NextTrack != null) ? TrainState.NextTrack.Name : strName;
+                            if (TrainState.NextTrack != null)
+                            {
+                                //閉塞区間が変わったら地上子Indexをリセット
+                                if (strName != OldTrackName)
+                                {
+                                    TrainState.CoupledSignalBeaconIndex = -1;
+                                }
+                                else
+                                {
+                                    //地上子と結合したら情報を更新
+                                    var strIndex = SignalBeacons.GetCoupledSignalBeaconIndex(TrainState.SignalBeaconsList);
+                                    if (strIndex >= 0)
+                                    {
+                                        TrainState.CoupledSignalBeaconIndex = strIndex;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        new RelayOtherInfoAbnormal(3, "Relay.cs@Elapse()", ex);
                     }
 
                     //軌道回路情報あり

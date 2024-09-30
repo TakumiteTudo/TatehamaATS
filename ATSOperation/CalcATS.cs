@@ -189,7 +189,21 @@ namespace TatehamaATS.ATSOperation
                 //速度照査
                 if (ATSLimitSpeed < NowSpeed)
                 {
-                    IsATSEmergencyBraking = true;
+                    //非常ブレーキ判定
+                    if (ATSLimitSpeed < 20.0f)
+                    {
+                        IsATSEmergencyBraking = true;
+                    }
+                    //常用ブレーキ判定
+                    else
+                    {
+                        IsATSServiceBraking = true;
+                    }
+                }
+                //常用ブレーキ緩解判定
+                else if (IsATSServiceBraking && (NowSpeed <= (ATSLimitSpeed - 2.0f)))
+                {
+                    IsATSServiceBraking = false;
                 }
             }
             catch (ATSCommonException ex)

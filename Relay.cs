@@ -172,6 +172,10 @@ namespace TatehamaATS
                                 {
                                     TrainCrewInput.SetATO_Notch(-8);
                                 }
+                                else if (TrainState.ATSServiceBrake)
+                                {
+                                    TrainCrewInput.SetATO_Notch(-7);
+                                }
                                 else
                                 {
                                     TrainCrewInput.SetATO_Notch(0);
@@ -182,6 +186,10 @@ namespace TatehamaATS
                                 if (EB || TrainState.ATSEmergencyBrake)
                                 {
                                     TrainCrewInput.SetATO_Notch(-9);
+                                }
+                                else if (TrainState.ATSServiceBrake)
+                                {
+                                    TrainCrewInput.SetATO_Notch(-8);
                                 }
                                 else
                                 {
@@ -220,7 +228,7 @@ namespace TatehamaATS
                     try
                     {
                         string atsSpeed = (TrainState.ATSLimitSpeed < float.Parse(TC_TrainState.ATS_Speed)) ? TrainState.ATSLimitSpeed.ToString("F0") : TC_TrainState.ATS_Speed;
-                        string atsState = TrainState.ATSEmergencyBrake ? "EB" : TC_TrainState.ATS_State;
+                        string atsState = (EB || TrainState.ATSEmergencyBrake) ? "EB" : TrainState.ATSServiceBrake ? "B動作" : TC_TrainState.ATS_State;
 
                         //TrainState.TC_ATSDisplay = new ATSDisplay(TC_TrainState.ATS_Class, TC_TrainState.ATS_Speed, [TC_TrainState.ATS_State]);
                         TrainState.ATSDisplay?.SetLED(TC_TrainState.ATS_Class, atsSpeed);

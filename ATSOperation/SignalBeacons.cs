@@ -17,10 +17,8 @@ namespace TatehamaATS.ATSOperation
         private const float MINIMUM_COUPLING_RANGE = 0.35f;
         /// <summary> 最大結合範囲 </summary>
         private const float MAXIMUM_COUPLING_RANGE = 2.00f;
-        /// <summary> 直前の信号機名称 </summary>
-        private static string? lastSignalName = null;
-        /// <summary> 直前の信号機進入時刻 </summary>
-        private static DateTime lastSignalTimestamp;
+        /// <summary> 直前の信号機名称と進入時刻を管理する辞書 </summary>
+        private static Dictionary<string, DateTime> signalTimestamps = new Dictionary<string, DateTime>();
 
         /// <summary>
         /// 地上子結合中判定
@@ -74,18 +72,17 @@ namespace TatehamaATS.ATSOperation
                                 IsCouplingBeacon((float)nowSpeed, beacon.distance)
                             );
 
-                            //直前の信号機名称と比較
-                            if (lastSignalName == signal.name)
+                            //直前の信号機名称と比較して辞書を参照
+                            if (signalTimestamps.TryGetValue(signal.name, out DateTime value))
                             {
                                 //経過時間を計算
-                                newBeacon.SetInitialTimestamp(lastSignalTimestamp);
+                                newBeacon.SetInitialTimestamp(value);
                                 newBeacon.UpdateElapsedTime();
                             }
                             else
                             {
                                 //新しい信号機名称の場合は呼び出し時刻を更新
-                                lastSignalName = signal.name;
-                                lastSignalTimestamp = DateTime.Now;
+                                signalTimestamps[signal.name] = DateTime.Now;
                             }
                             SignalBeaconsInfoList.Add(newBeacon);
                         }

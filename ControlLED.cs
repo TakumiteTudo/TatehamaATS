@@ -292,8 +292,10 @@ namespace TatehamaATS
                     return 23;
                 case "回送-2":
                     return 24;
-                case "C特2-2":
+                case "回送-3":
                     return 25;
+                case "C特2-2":
+                    return 26;
                 case "F":
                     return 126;
                 case "P":

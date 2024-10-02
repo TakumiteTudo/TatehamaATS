@@ -18,7 +18,7 @@ namespace TatehamaATS
         private TimeSpan ShiftTime = TimeSpan.FromHours(10);
         private Label Clock;
         private CalcATS CalcATS;
-        private string OldTrackName = "None";
+        private string OldSignalName = string.Empty;
 
         internal Relay(Label clock, CalcATS calcATS)
         {
@@ -250,23 +250,21 @@ namespace TatehamaATS
                         //地上子情報を取得
                         if ((TrainState.SignalBeaconsList != null) && (TrainState.SignalBeaconsList.Count > 0))
                         {
-                            string strName = OldTrackName;
-                            OldTrackName = (TrainState.NextTrack != null) ? TrainState.NextTrack.Name : strName;
-                            if (TrainState.NextTrack != null)
+                            string strName = OldSignalName;
+                            OldSignalName = TrainState.SignalBeaconsList[0].SignalName;
+
+                            //閉塞区間が変わったら地上子Indexをリセット
+                            if (strName != OldSignalName)
                             {
-                                //閉塞区間が変わったら地上子Indexをリセット
-                                if (strName != OldTrackName)
+                                TrainState.CoupledSignalBeaconIndex = -1;
+                            }
+                            else
+                            {
+                                //地上子と結合したら情報を更新
+                                var strIndex = SignalBeacons.GetCoupledSignalBeaconIndex(TrainState.SignalBeaconsList);
+                                if (strIndex >= 0)
                                 {
-                                    TrainState.CoupledSignalBeaconIndex = -1;
-                                }
-                                else
-                                {
-                                    //地上子と結合したら情報を更新
-                                    var strIndex = SignalBeacons.GetCoupledSignalBeaconIndex(TrainState.SignalBeaconsList);
-                                    if (strIndex >= 0)
-                                    {
-                                        TrainState.CoupledSignalBeaconIndex = strIndex;
-                                    }
+                                    TrainState.CoupledSignalBeaconIndex = strIndex;
                                 }
                             }
                         }

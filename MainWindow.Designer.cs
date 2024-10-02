@@ -38,12 +38,15 @@
             toolStripStatusLabel4 = new ToolStripStatusLabel();
             SigWinStatus = new ToolStripStatusLabel();
             toolStripStatusLabel5 = new ToolStripStatusLabel();
+            toolStripStatusLabel6 = new ToolStripStatusLabel();
             LEDWindowButton = new Button();
             ATSResetButton = new Button();
             SignalWindowButton = new Button();
             Retsuban7 = new Button();
             panel1 = new Panel();
+            RetsubanX = new Button();
             RetsubanRin = new Button();
+            button2 = new Button();
             RetsubanKai = new Button();
             RetsubanA = new Button();
             RetsubanBack = new Button();
@@ -78,10 +81,10 @@
             // statusStrip1
             // 
             statusStrip1.Font = new Font("ＭＳ ゴシック", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, TanudenStatus, toolStripStatusLabel2, SignalStatus, toolStripStatusLabel3, LEDStatus, toolStripStatusLabel4, SigWinStatus, toolStripStatusLabel5 });
-            statusStrip1.Location = new Point(0, 320);
+            statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, TanudenStatus, toolStripStatusLabel2, SignalStatus, toolStripStatusLabel3, LEDStatus, toolStripStatusLabel4, SigWinStatus, toolStripStatusLabel5, toolStripStatusLabel6 });
+            statusStrip1.Location = new Point(0, 413);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(554, 25);
+            statusStrip1.Size = new Size(597, 25);
             statusStrip1.TabIndex = 0;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -146,11 +149,17 @@
             toolStripStatusLabel5.BorderSides = ToolStripStatusLabelBorderSides.Left | ToolStripStatusLabelBorderSides.Right;
             toolStripStatusLabel5.Name = "toolStripStatusLabel5";
             toolStripStatusLabel5.Size = new Size(75, 20);
-            toolStripStatusLabel5.Text = "Ver0.4.4";
+            toolStripStatusLabel5.Text = "Ver0.4.5";
+            // 
+            // toolStripStatusLabel6
+            // 
+            toolStripStatusLabel6.Name = "toolStripStatusLabel6";
+            toolStripStatusLabel6.Size = new Size(175, 16);
+            toolStripStatusLabel6.Text = "toolStripStatusLabel6";
             // 
             // LEDWindowButton
             // 
-            LEDWindowButton.Location = new Point(2, 214);
+            LEDWindowButton.Location = new Point(2, 197);
             LEDWindowButton.Name = "LEDWindowButton";
             LEDWindowButton.Size = new Size(96, 50);
             LEDWindowButton.TabIndex = 1;
@@ -161,9 +170,9 @@
             // ATSResetButton
             // 
             ATSResetButton.Font = new Font("ＭＳ ゴシック", 24F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            ATSResetButton.Location = new Point(4, 6);
+            ATSResetButton.Location = new Point(2, 74);
             ATSResetButton.Name = "ATSResetButton";
-            ATSResetButton.Size = new Size(203, 83);
+            ATSResetButton.Size = new Size(148, 57);
             ATSResetButton.TabIndex = 4;
             ATSResetButton.Text = "ATS復帰";
             ATSResetButton.UseVisualStyleBackColor = true;
@@ -171,7 +180,7 @@
             // 
             // SignalWindowButton
             // 
-            SignalWindowButton.Location = new Point(2, 158);
+            SignalWindowButton.Location = new Point(2, 141);
             SignalWindowButton.Name = "SignalWindowButton";
             SignalWindowButton.Size = new Size(96, 50);
             SignalWindowButton.TabIndex = 5;
@@ -181,7 +190,8 @@
             // 
             // Retsuban7
             // 
-            Retsuban7.Location = new Point(3, 3);
+            Retsuban7.Font = new Font("ＭＳ ゴシック", 15.75F);
+            Retsuban7.Location = new Point(3, 49);
             Retsuban7.Name = "Retsuban7";
             Retsuban7.Size = new Size(40, 40);
             Retsuban7.TabIndex = 6;
@@ -191,8 +201,11 @@
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             panel1.BackColor = Color.DimGray;
+            panel1.Controls.Add(RetsubanX);
             panel1.Controls.Add(RetsubanRin);
+            panel1.Controls.Add(button2);
             panel1.Controls.Add(RetsubanKai);
             panel1.Controls.Add(RetsubanA);
             panel1.Controls.Add(RetsubanBack);
@@ -212,34 +225,54 @@
             panel1.Controls.Add(Retsuban9);
             panel1.Controls.Add(Retsuban8);
             panel1.Controls.Add(Retsuban7);
-            panel1.Location = new Point(22, 78);
+            panel1.Location = new Point(173, 91);
             panel1.Name = "panel1";
-            panel1.Size = new Size(231, 186);
+            panel1.Size = new Size(230, 229);
             panel1.TabIndex = 7;
+            // 
+            // RetsubanX
+            // 
+            RetsubanX.Location = new Point(141, 187);
+            RetsubanX.Name = "RetsubanX";
+            RetsubanX.Size = new Size(40, 40);
+            RetsubanX.TabIndex = 24;
+            RetsubanX.Text = "Ｘ";
+            RetsubanX.UseVisualStyleBackColor = true;
+            RetsubanX.Click += RetsubanX_Click;
             // 
             // RetsubanRin
             // 
-            RetsubanRin.Location = new Point(95, 141);
+            RetsubanRin.Location = new Point(95, 3);
             RetsubanRin.Name = "RetsubanRin";
             RetsubanRin.Size = new Size(40, 40);
-            RetsubanRin.TabIndex = 24;
-            RetsubanRin.Text = "Ｘ";
+            RetsubanRin.TabIndex = 23;
+            RetsubanRin.Text = "臨";
             RetsubanRin.UseVisualStyleBackColor = true;
             RetsubanRin.Click += RetsubanRin_Click;
             // 
+            // button2
+            // 
+            button2.Location = new Point(3, 3);
+            button2.Name = "button2";
+            button2.Size = new Size(40, 40);
+            button2.TabIndex = 23;
+            button2.Text = "回";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += RetsubanKai_Click;
+            // 
             // RetsubanKai
             // 
-            RetsubanKai.Location = new Point(49, 141);
+            RetsubanKai.Location = new Point(49, 3);
             RetsubanKai.Name = "RetsubanKai";
             RetsubanKai.Size = new Size(40, 40);
             RetsubanKai.TabIndex = 23;
-            RetsubanKai.Text = "回";
+            RetsubanKai.Text = "試";
             RetsubanKai.UseVisualStyleBackColor = true;
             RetsubanKai.Click += RetsubanKai_Click;
             // 
             // RetsubanA
             // 
-            RetsubanA.Location = new Point(141, 141);
+            RetsubanA.Location = new Point(141, 3);
             RetsubanA.Name = "RetsubanA";
             RetsubanA.Size = new Size(40, 40);
             RetsubanA.TabIndex = 22;
@@ -259,7 +292,7 @@
             // 
             // RetsubanEnter
             // 
-            RetsubanEnter.Location = new Point(187, 141);
+            RetsubanEnter.Location = new Point(49, 187);
             RetsubanEnter.Name = "RetsubanEnter";
             RetsubanEnter.Size = new Size(40, 40);
             RetsubanEnter.TabIndex = 20;
@@ -279,7 +312,8 @@
             // 
             // Retsuban0
             // 
-            Retsuban0.Location = new Point(3, 141);
+            Retsuban0.Font = new Font("ＭＳ ゴシック", 15.75F);
+            Retsuban0.Location = new Point(3, 187);
             Retsuban0.Name = "Retsuban0";
             Retsuban0.Size = new Size(40, 40);
             Retsuban0.TabIndex = 18;
@@ -289,7 +323,7 @@
             // 
             // RetsubanDel
             // 
-            RetsubanDel.Location = new Point(187, 95);
+            RetsubanDel.Location = new Point(95, 187);
             RetsubanDel.Name = "RetsubanDel";
             RetsubanDel.Size = new Size(40, 40);
             RetsubanDel.TabIndex = 18;
@@ -299,7 +333,8 @@
             // 
             // Retsuban1
             // 
-            Retsuban1.Location = new Point(3, 95);
+            Retsuban1.Font = new Font("ＭＳ ゴシック", 15.75F);
+            Retsuban1.Location = new Point(3, 141);
             Retsuban1.Name = "Retsuban1";
             Retsuban1.Size = new Size(40, 40);
             Retsuban1.TabIndex = 17;
@@ -309,7 +344,8 @@
             // 
             // Retsuban3
             // 
-            Retsuban3.Location = new Point(95, 95);
+            Retsuban3.Font = new Font("ＭＳ ゴシック", 15.75F);
+            Retsuban3.Location = new Point(95, 141);
             Retsuban3.Name = "Retsuban3";
             Retsuban3.Size = new Size(40, 40);
             Retsuban3.TabIndex = 16;
@@ -319,7 +355,8 @@
             // 
             // Retsuban2
             // 
-            Retsuban2.Location = new Point(49, 95);
+            Retsuban2.Font = new Font("ＭＳ ゴシック", 15.75F);
+            Retsuban2.Location = new Point(49, 141);
             Retsuban2.Name = "Retsuban2";
             Retsuban2.Size = new Size(40, 40);
             Retsuban2.TabIndex = 15;
@@ -329,7 +366,7 @@
             // 
             // RetsubanK
             // 
-            RetsubanK.Location = new Point(141, 95);
+            RetsubanK.Location = new Point(141, 141);
             RetsubanK.Name = "RetsubanK";
             RetsubanK.Size = new Size(40, 40);
             RetsubanK.TabIndex = 14;
@@ -339,7 +376,7 @@
             // 
             // RetsubanC
             // 
-            RetsubanC.Location = new Point(141, 3);
+            RetsubanC.Location = new Point(141, 95);
             RetsubanC.Name = "RetsubanC";
             RetsubanC.Size = new Size(40, 40);
             RetsubanC.TabIndex = 13;
@@ -349,7 +386,8 @@
             // 
             // Retsuban6
             // 
-            Retsuban6.Location = new Point(95, 49);
+            Retsuban6.Font = new Font("ＭＳ ゴシック", 15.75F);
+            Retsuban6.Location = new Point(95, 95);
             Retsuban6.Name = "Retsuban6";
             Retsuban6.Size = new Size(40, 40);
             Retsuban6.TabIndex = 12;
@@ -359,7 +397,8 @@
             // 
             // Retsuban5
             // 
-            Retsuban5.Location = new Point(49, 49);
+            Retsuban5.Font = new Font("ＭＳ ゴシック", 15.75F);
+            Retsuban5.Location = new Point(49, 95);
             Retsuban5.Name = "Retsuban5";
             Retsuban5.Size = new Size(40, 40);
             Retsuban5.TabIndex = 11;
@@ -369,7 +408,8 @@
             // 
             // Retsuban4
             // 
-            Retsuban4.Location = new Point(3, 49);
+            Retsuban4.Font = new Font("ＭＳ ゴシック", 15.75F);
+            Retsuban4.Location = new Point(3, 95);
             Retsuban4.Name = "Retsuban4";
             Retsuban4.Size = new Size(40, 40);
             Retsuban4.TabIndex = 10;
@@ -389,7 +429,8 @@
             // 
             // Retsuban9
             // 
-            Retsuban9.Location = new Point(95, 3);
+            Retsuban9.Font = new Font("ＭＳ ゴシック", 15.75F);
+            Retsuban9.Location = new Point(95, 49);
             Retsuban9.Name = "Retsuban9";
             Retsuban9.Size = new Size(40, 40);
             Retsuban9.TabIndex = 8;
@@ -399,7 +440,8 @@
             // 
             // Retsuban8
             // 
-            Retsuban8.Location = new Point(49, 3);
+            Retsuban8.Font = new Font("ＭＳ ゴシック", 15.75F);
+            Retsuban8.Location = new Point(49, 49);
             Retsuban8.Name = "Retsuban8";
             Retsuban8.Size = new Size(40, 40);
             Retsuban8.TabIndex = 7;
@@ -417,17 +459,18 @@
             panel2.Controls.Add(RetsubanText);
             panel2.Controls.Add(panel1);
             panel2.Controls.Add(label3);
-            panel2.Location = new Point(273, 45);
+            panel2.Location = new Point(186, 87);
             panel2.Name = "panel2";
-            panel2.Size = new Size(269, 272);
+            panel2.Size = new Size(406, 323);
             panel2.TabIndex = 8;
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label2.BackColor = Color.DimGray;
             label2.Font = new Font("ＭＳ ゴシック", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 128);
             label2.ForeColor = Color.Transparent;
-            label2.Location = new Point(209, 42);
+            label2.Location = new Point(355, 37);
             label2.Name = "label2";
             label2.RightToLeft = RightToLeft.No;
             label2.Size = new Size(44, 24);
@@ -437,52 +480,57 @@
             // 
             // CarText
             // 
+            CarText.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             CarText.BackColor = Color.DimGray;
             CarText.Font = new Font("ＭＳ ゴシック", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 128);
             CarText.ForeColor = Color.Transparent;
-            CarText.Location = new Point(131, 42);
+            CarText.Location = new Point(300, 37);
             CarText.Name = "CarText";
             CarText.RightToLeft = RightToLeft.No;
-            CarText.Size = new Size(81, 24);
+            CarText.Size = new Size(58, 24);
             CarText.TabIndex = 10;
             CarText.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label6
             // 
+            label6.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label6.AutoSize = true;
-            label6.Location = new Point(40, 48);
+            label6.Location = new Point(243, 43);
             label6.Name = "label6";
-            label6.Size = new Size(71, 16);
+            label6.Size = new Size(55, 16);
             label6.TabIndex = 9;
-            label6.Text = "編成両数";
+            label6.Text = "両　数";
             // 
             // RetsubanText
             // 
+            RetsubanText.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             RetsubanText.BackColor = Color.DimGray;
             RetsubanText.Font = new Font("ＭＳ ゴシック", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 128);
             RetsubanText.ForeColor = Color.Transparent;
-            RetsubanText.Location = new Point(131, 12);
+            RetsubanText.Location = new Point(300, 7);
             RetsubanText.Name = "RetsubanText";
             RetsubanText.RightToLeft = RightToLeft.No;
-            RetsubanText.Size = new Size(122, 24);
+            RetsubanText.Size = new Size(99, 24);
             RetsubanText.TabIndex = 8;
+            RetsubanText.Text = "回9999KX";
             RetsubanText.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label3.AutoSize = true;
-            label3.Location = new Point(40, 18);
+            label3.Location = new Point(243, 13);
             label3.Name = "label3";
-            label3.Size = new Size(71, 16);
+            label3.Size = new Size(55, 16);
             label3.TabIndex = 3;
-            label3.Text = "列　　番";
+            label3.Text = "列　番";
             // 
             // label5
             // 
             label5.BackColor = Color.Gold;
             label5.Font = new Font("ＭＳ ゴシック", 18F, FontStyle.Regular, GraphicsUnit.Point, 128);
             label5.ForeColor = Color.Black;
-            label5.Location = new Point(4, 92);
+            label5.Location = new Point(2, 9);
             label5.Name = "label5";
             label5.RightToLeft = RightToLeft.No;
             label5.Size = new Size(203, 60);
@@ -510,7 +558,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(554, 345);
+            ClientSize = new Size(597, 438);
             Controls.Add(Clock);
             Controls.Add(panel2);
             Controls.Add(SignalWindowButton);
@@ -563,7 +611,7 @@
         private Button RetsubanB;
         private Button Retsuban9;
         private Button Retsuban8;
-        private Button RetsubanRin;
+        private Button RetsubanX;
         private Button RetsubanKai;
         private Button RetsubanA;
         private Button RetsubanBack;
@@ -576,5 +624,8 @@
         private Label label3;
         private ToolStripStatusLabel toolStripStatusLabel5;
         private Label Clock;
+        private ToolStripStatusLabel toolStripStatusLabel6;
+        private Button RetsubanRin;
+        private Button button2;
     }
 }

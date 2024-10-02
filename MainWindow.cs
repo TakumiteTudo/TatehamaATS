@@ -137,8 +137,13 @@ namespace TatehamaATS
 
         private void RetsubanRin_Click(object sender, EventArgs e)
         {
+            retsuban.addText("臨");
+        }
+        private void RetsubanX_Click(object sender, EventArgs e)
+        {
             retsuban.addText("X");
         }
+
 
         private void RetsubanC_Click(object sender, EventArgs e)
         {

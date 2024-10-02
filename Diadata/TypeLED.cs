@@ -55,6 +55,25 @@ namespace TatehamaATS.Diadata
                     MainWindow.controlLED.overrideText = "だんじり快急";
                     break;
 
+                //92年
+                case "1041B":
+                case "1037B":
+                case "1035B":
+                case "1231B":
+                case "1147B":
+                case "1143B":
+                case "1039B":
+                case "1149B":
+                case "1145B":
+                    MainWindow.controlLED.overrideText = "急行";
+                    break;
+
+                //92年 4300展示回送    
+                case "回7001":
+                case "回7200":
+                    MainWindow.controlLED.overrideText = "回送-3";
+                    break;
+
                 default:
                     MainWindow.controlLED.overrideText = null;
                     break;

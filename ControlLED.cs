@@ -13,7 +13,7 @@ namespace TatehamaATS
         private LEDWindow ledWindow;
         private int l3Index = 0; // display.L3のインデックスを追跡するための変数         
         private TimeSpan L3Start = new TimeSpan();
-        private DateTime TestStart = new DateTime();
+        private DateTime TestStart = DateTime.MinValue;
         public string? overrideText = null;
 
         public ControlLED()
@@ -98,7 +98,7 @@ namespace TatehamaATS
                 }
                 var deltaT = DateTime.Now - TestStart;
 
-                var LED = deltaT.Seconds % 3 + 419;
+                var LED = deltaT.Seconds % 3 + 27;
                 var Place = deltaT.Seconds / 3 % 3 + 1;
                 if (deltaT < TimeSpan.FromSeconds(9))
                 {
@@ -120,8 +120,11 @@ namespace TatehamaATS
                     }
                     return;
                 }
-                TestStart = DateTime.MinValue;
-                TrainState.ATSLEDTest = false;
+                else
+                {
+                    TestStart = DateTime.MinValue;
+                    TrainState.ATSLEDTest = false;
+                }
             }
             if (TrainState.ATSDisplay != null)
             {
@@ -169,12 +172,12 @@ namespace TatehamaATS
                         if (L3List.Contains("B動作") || L3List.Contains("EB"))
                         {
                             //赤い方
-                            ledWindow.DisplayImage(2, ConvertToLEDNumber(display.L2) + 200);
+                            ledWindow.DisplayImage(2, ConvertToLEDNumber(display.L2) + 100);
                         }
                         else if (L3List.Contains("P接近"))
                         {
                             //橙の方
-                            ledWindow.DisplayImage(2, ConvertToLEDNumber(display.L2) + 100);
+                            ledWindow.DisplayImage(2, ConvertToLEDNumber(display.L2) + 50);
                         }
                         else
                         {
@@ -294,17 +297,23 @@ namespace TatehamaATS
                 case "F":
                     return 126;
                 case "P":
-                    return 400;
+                    return 50;
                 case "P接近":
-                    return 401;
+                    return 51;
                 case "B動作":
-                    return 402;
+                    return 52;
                 case "EB":
-                    return 403;
+                    return 53;
                 case "終端P":
-                    return 404;
+                    return 54;
                 case "停P":
-                    return 405;
+                    return 55;
+                case "非常":
+                    return 57;
+                case "運転":
+                    return 58;
+                case "開放":
+                    return 59;
                 default:
                     throw new LEDDisplayStringAbnormal(3, $"未定義:{str}　ControlLED.cs@ConvertToLEDNumber()");
             }

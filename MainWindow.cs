@@ -63,7 +63,7 @@ namespace TatehamaATS
             //非常ブレーキ復帰
             else if (TrainState.ATSEmergencyBrake && TrainState.ATSLimitSpeed > 0.0 && TrainState.TrainSpeed < 1.0 && TrainState.TrainBnotch >= 8)
             {
-                calcATS.ResetATS();
+                calcATS.ReleaseATSBrake();
             }
         }
 

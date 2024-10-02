@@ -104,6 +104,15 @@ namespace TatehamaATS.ATSOperation
         }
 
         /// <summary>
+        /// ATSブレーキ緩解処理
+        /// </summary>
+        public void ReleaseATSBrake()
+        {
+            IsATSEmergencyBraking = false;
+            IsATSServiceBraking = false;
+        }
+
+        /// <summary>
         /// ATSブレーキ出力
         /// </summary>
         private void EnableATSBrake(SignalBeaconsInfo beaconsInfo, float NowSpeed)

@@ -132,6 +132,7 @@ namespace TatehamaATS
                             MainWindow.retsuban?.Init();
                             TrainState.init();
                             CalcATS.ResetATS();
+                            SignalBeacons.ResetSignalData();
                         }
                     }
                     else

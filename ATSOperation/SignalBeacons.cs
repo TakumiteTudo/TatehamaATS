@@ -79,6 +79,11 @@ namespace TatehamaATS.ATSOperation
                                 newBeacon.SetInitialTimestamp(value);
                                 newBeacon.UpdateElapsedTime();
                             }
+                            else if (signalTimestamps.Count == 0)
+                            {
+                                //最初の信号機名称の場合は呼び出し時刻を60秒前に更新
+                                signalTimestamps[signal.name] = DateTime.Now.AddSeconds(-60);
+                            }
                             else
                             {
                                 //新しい信号機名称の場合は呼び出し時刻を更新
@@ -121,6 +126,14 @@ namespace TatehamaATS.ATSOperation
                 throw;
             }
             return -1;
+        }
+
+        /// <summary>
+        /// 保持データ初期化
+        /// </summary>
+        internal static void ResetSignalData()
+        {
+            signalTimestamps.Clear();
         }
     }
 }

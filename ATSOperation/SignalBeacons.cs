@@ -16,7 +16,7 @@ namespace TatehamaATS.ATSOperation
         /// <summary> 最小結合範囲 </summary>
         private const float MINIMUM_COUPLING_RANGE = 0.35f;
         /// <summary> 最大結合範囲 </summary>
-        private const float MAXIMUM_COUPLING_RANGE = 2.00f;
+        private const float MAXIMUM_COUPLING_RANGE = 5.00f;
         /// <summary> 直前の信号機名称と進入時刻を管理する辞書 </summary>
         private static Dictionary<string, DateTime> signalTimestamps = new Dictionary<string, DateTime>();
 

@@ -1,5 +1,6 @@
 ﻿using System.Data.Common;
 using System.Diagnostics;
+using TatehamaATS.ATSOperation;
 using TatehamaATS.Exceptions;
 using TatehamaATS.Signal;
 
@@ -10,11 +11,11 @@ namespace TatehamaATS
         static internal InspectionRecord inspectionRecord = new InspectionRecord();
         private SignalWindow signalWindow;
         private Relay relay;
+        private CalcATS calcATS;
         static internal SignalSocket signalSocket = new SignalSocket();
         static internal Retsuban retsuban;
         static internal Transfer transfer = new Transfer();
         static internal ControlLED controlLED;
-
 
         public MainWindow()
         {
@@ -22,7 +23,8 @@ namespace TatehamaATS
             {
                 InitializeComponent();
                 TrainState.init();
-                relay = new Relay(Clock);
+                calcATS = new CalcATS();
+                relay = new Relay(Clock, calcATS);
                 signalWindow = new SignalWindow();
                 retsuban = new Retsuban(RetsubanText, CarText);
                 controlLED = new ControlLED();
@@ -57,6 +59,11 @@ namespace TatehamaATS
             if (TrainState.ATSBroken && TrainState.TrainSpeed < 1.0 && TrainState.TrainBnotch >= 8)
             {
                 MainWindow.inspectionRecord.ATSReset = true;
+            }
+            //非常ブレーキ復帰
+            else if (TrainState.ATSEmergencyBrake && TrainState.ATSLimitSpeed > 0.0 && TrainState.TrainSpeed < 1.0 && TrainState.TrainBnotch >= 8)
+            {
+                calcATS.ReleaseATSBrake();
             }
         }
 

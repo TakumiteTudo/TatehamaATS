@@ -1,5 +1,6 @@
 ﻿using TatehamaATS.Database;
 using TatehamaATS.Exceptions;
+using TatehamaATS.ATSOperation;
 using TrainCrew;
 
 namespace TatehamaATS
@@ -86,6 +87,26 @@ namespace TatehamaATS
         /// ATS故障
         /// </summary>
         static public bool ATSBroken;
+        /// <summary>
+        /// ATS非常ブレーキ
+        /// </summary>
+        static public bool ATSEmergencyBrake;
+        /// <summary>
+        /// ATS常用ブレーキ
+        /// </summary>
+        static public bool ATSServiceBrake;
+        /// <summary>
+        /// ATS制限速度
+        /// </summary>
+        static public float ATSLimitSpeed;
+        /// <summary>
+        /// 信号機地上子情報
+        /// </summary>
+        static public List<SignalBeaconsInfo>? SignalBeaconsList;
+        /// <summary>
+        /// 結合した信号機地上子Index
+        /// </summary>
+        static public int CoupledSignalBeaconIndex;
 
         /// <summary>
         /// 列番変更
@@ -107,7 +128,12 @@ namespace TatehamaATS
             TC_ATSDisplay = null;
             ATSDisplay = new ATSDisplay("", "", [""]);
             ATSBroken = false;
+            ATSEmergencyBrake = false;
+            ATSServiceBrake = false;
+            ATSLimitSpeed = 0f;
             OnTrackIndex = null;
+            SignalBeaconsList = null;
+            CoupledSignalBeaconIndex = -1;
         }
     }
 }

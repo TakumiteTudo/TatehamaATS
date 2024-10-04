@@ -182,5 +182,19 @@ namespace TatehamaATS
         {
 
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            RetsubanText.BackColor = Color.DimGray;
+            RetsubanText.ForeColor = Color.Transparent;
+            TrainState.DiaType = DiaType.Normal;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            RetsubanText.BackColor = Color.Red;
+            RetsubanText.ForeColor = Color.White;
+            TrainState.DiaType = DiaType.OldEdition;
+        }
     }
 }

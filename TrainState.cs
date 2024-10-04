@@ -1,11 +1,29 @@
-﻿using TatehamaATS.Database;
+﻿using TatehamaATS.ATSControler;
+using TatehamaATS.Database;
 using TatehamaATS.Exceptions;
 using TrainCrew;
 
 namespace TatehamaATS
 {
+    enum DiaType
+    {
+        /// <summary>
+        /// 現在ダイヤ
+        /// </summary>
+        Normal,
+        /// <summary>
+        /// 92年ダイヤ
+        /// </summary>
+        OldEdition
+    }
+
     static internal class TrainState
     {
+        /// <summary>
+        /// ダイヤ選択
+        /// </summary>
+        static public DiaType DiaType;
+
         /// <summary>
         /// 現在ゲーム状態
         /// </summary>
@@ -91,6 +109,15 @@ namespace TatehamaATS
         /// 列番変更
         /// </summary>
         static public bool chengeDiaName;
+
+        /// <summary>
+        /// ATS1系状態
+        /// </summary>
+        static public ATSState ATS1State;
+        /// <summary>
+        /// ATS2系状態
+        /// </summary>
+        static public ATSState ATS2State;
 
         /// <summary>
         /// 完全初期化

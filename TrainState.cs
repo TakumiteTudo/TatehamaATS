@@ -7,6 +7,11 @@ namespace TatehamaATS
     static internal class TrainState
     {
         /// <summary>
+        /// ダイヤ選択
+        /// </summary>
+        static public DiaType DiaType;
+
+        /// <summary>
         /// 現在ゲーム状態
         /// </summary>
         static public GameScreen gameScreen;

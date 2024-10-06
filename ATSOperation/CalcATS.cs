@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TatehamaATS.Exceptions;
+using TatehamaATS.ATSControler;
 
 namespace TatehamaATS.ATSOperation
 {
@@ -78,6 +79,8 @@ namespace TatehamaATS.ATSOperation
 
                 //ATSブレーキ出力処理
                 EnableATSBrake(beaconsInfo, speed);
+
+                TrainState.ATS1State = new ATSState(true, false, false)
 
                 TrainState.ATSLimitSpeed = ATSLimitSpeed;
                 TrainState.ATSEmergencyBrake = IsATSEmergencyBraking;

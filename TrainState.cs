@@ -102,22 +102,6 @@ namespace TatehamaATS
         /// </summary>
         static public bool ATSLEDTest;
         /// <summary>
-        /// ATS故障
-        /// </summary>
-        static public bool ATSBroken;
-        /// <summary>
-        /// ATS非常ブレーキ
-        /// </summary>
-        static public bool ATSEmergencyBrake;
-        /// <summary>
-        /// ATS常用ブレーキ
-        /// </summary>
-        static public bool ATSServiceBrake;
-        /// <summary>
-        /// ATS制限速度
-        /// </summary>
-        static public float ATSLimitSpeed;
-        /// <summary>
         /// 信号機地上子情報
         /// </summary>
         static public List<SignalBeaconsInfo>? SignalBeaconsList;
@@ -134,11 +118,11 @@ namespace TatehamaATS
         /// <summary>
         /// ATS1系状態
         /// </summary>
-        static public ATSState ATS1State;
+        static public ATSState? ATS1State;
         /// <summary>
         /// ATS2系状態
         /// </summary>
-        static public ATSState ATS2State;
+        static public ATSState? ATS2State;
 
         /// <summary>
         /// 完全初期化
@@ -154,13 +138,11 @@ namespace TatehamaATS
             RouteDatabaseCount = 0;
             TC_ATSDisplay = null;
             ATSDisplay = new ATSDisplay("", "", [""]);
-            ATSBroken = false;
-            ATSEmergencyBrake = false;
-            ATSServiceBrake = false;
-            ATSLimitSpeed = 0f;
             OnTrackIndex = null;
             SignalBeaconsList = null;
             CoupledSignalBeaconIndex = -1;
+            ATS1State = null;
+            ATS2State = null;
         }
     }
 }

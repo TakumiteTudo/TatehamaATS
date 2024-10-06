@@ -315,7 +315,7 @@
             // 
             // RetsubanBack
             // 
-            RetsubanBack.Location = new Point(187, 3);
+            RetsubanBack.Location = new Point(95, 187);
             RetsubanBack.Name = "RetsubanBack";
             RetsubanBack.Size = new Size(40, 40);
             RetsubanBack.TabIndex = 21;
@@ -356,7 +356,7 @@
             // 
             // RetsubanDel
             // 
-            RetsubanDel.Location = new Point(95, 187);
+            RetsubanDel.Location = new Point(186, 95);
             RetsubanDel.Name = "RetsubanDel";
             RetsubanDel.Size = new Size(40, 40);
             RetsubanDel.TabIndex = 18;

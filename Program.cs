@@ -2,6 +2,7 @@ namespace TatehamaATS
 {
     internal static class Program
     {
+        internal const string ServerAddress = "http://kesigomon.com:8090";
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>

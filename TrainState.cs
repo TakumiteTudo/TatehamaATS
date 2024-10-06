@@ -4,8 +4,25 @@ using TrainCrew;
 
 namespace TatehamaATS
 {
+    enum DiaType
+    {
+        /// <summary>
+        /// 現在ダイヤ
+        /// </summary>
+        Normal,
+        /// <summary>
+        /// 92年ダイヤ
+        /// </summary>
+        OldEdition
+    }
+
     static internal class TrainState
     {
+        /// <summary>
+        /// ダイヤ選択
+        /// </summary>
+        static public DiaType DiaType;
+
         /// <summary>
         /// 現在ゲーム状態
         /// </summary>

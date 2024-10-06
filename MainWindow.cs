@@ -15,7 +15,6 @@ namespace TatehamaATS
         static internal Transfer transfer = new Transfer();
         static internal ControlLED controlLED;
 
-
         public MainWindow()
         {
             try
@@ -181,6 +180,20 @@ namespace TatehamaATS
         private void MainWindow_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            RetsubanText.BackColor = Color.DimGray;
+            RetsubanText.ForeColor = Color.Transparent;
+            TrainState.DiaType = DiaType.Normal;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            RetsubanText.BackColor = Color.Red;
+            RetsubanText.ForeColor = Color.White;
+            TrainState.DiaType = DiaType.OldEdition;
         }
     }
 }

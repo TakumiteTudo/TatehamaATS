@@ -5,6 +5,7 @@ namespace TatehamaATS.Diadata
     internal class DiaNameToDatebaseName
     {
         private Dictionary<string, string> 列番変換辞書;
+        private Dictionary<string, string> 旧列番変換辞書;
         public DiaNameToDatebaseName()
         {
             列番変換辞書 = new Dictionary<string, string>{   
@@ -74,6 +75,30 @@ namespace TatehamaATS.Diadata
                 {"1180C", "2084C"},
                 {"1280C", "2084C"},
 
+
+
+                //着線別入力用列番
+                {"9410", "1166"}, //普通　津崎１番線着
+                {"9420", "1260"}, //普通　津崎２番線着
+                {"9034", "1261"}, //普通　津崎３番線着
+                {"9044", "1267"}, //普通　津崎４番線着
+                {"9200B", "3643K"}, //急行　館浜２番線発
+                {"9002B", "678B"},　//急行　館浜２番線着
+                {"9110A", "1204A"}, //C特1　館浜１番線発     
+                {"9201A", "1209A"}, //C特2　館浜１番線着
+
+                //--編集可能ここまで
+            };
+
+            旧列番変換辞書 = new Dictionary<string, string>{   
+                //--編集可能ここから     
+                //通常使用部分       
+                {"551", "回451"},
+                {"581C", "581"},
+                {"592", "592C"}, 
+
+                //運転会用部分
+                //通常列番
                 //92年通常ダイヤ
                 {"1108A", "1204A"},
                 {"1015A", "1209A"},
@@ -83,7 +108,6 @@ namespace TatehamaATS.Diadata
                 {"1011A", "1209A"},
                 {"1110A", "1204A"},
                 {"1105A", "1209A"},
-                {"1204A", "1204A"},
                 {"1213A", "1209A"},
                 {"1158", "1260"},
                 {"1159", "1261"},
@@ -94,7 +118,7 @@ namespace TatehamaATS.Diadata
                 {"1253", "1261"},
                 {"1252", "1260"},
                 {"1182B", "678B"},
-                {"1181B", "3643K"},
+                //{"1181B", "3643K"},
                 {"1280B", "678B"},
                 {"1279B", "3643K"},
                 {"1073B", "3643K"},
@@ -117,11 +141,10 @@ namespace TatehamaATS.Diadata
                 {"1017A", "1209A"},
                 {"1216A", "1204A"},
                 {"1107A", "1209A"},
-                {"1011A", "1209A"},
-                {"1110A", "1204A"},
-                {"1103A", "1209A"},
+                //{"1011A", "1209A"},
+                //{"1110A", "1204A"},
+                //{"1103A", "1209A"},
                 {"1202A", "1204A"},
-                {"1209A", "1209A"},
                 {"1306A", "1204A"},
                 {"1134B", "678B"},
                 {"1130B", "678B"},
@@ -161,7 +184,7 @@ namespace TatehamaATS.Diadata
                 {"1261", "1267"},
                 {"1265", "1267"},
                 {"回7001", "回607A"},
-                {"回7200", "回862"},
+                //{"回7200", "回862"},
 
                 //着線別入力用列番
                 {"9410", "1166"}, //普通　津崎１番線着
@@ -179,9 +202,19 @@ namespace TatehamaATS.Diadata
 
         public string ChengeDiaName(string DiaName)
         {
-            if (列番変換辞書.ContainsKey(DiaName))
+            if (TrainState.DiaType == DiaType.OldEdition)
             {
-                return 列番変換辞書[DiaName];
+                if (旧列番変換辞書.ContainsKey(DiaName))
+                {
+                    return 旧列番変換辞書[DiaName];
+                }
+            }
+            else
+            {
+                if (列番変換辞書.ContainsKey(DiaName))
+                {
+                    return 列番変換辞書[DiaName];
+                }
             }
             return DiaName;
         }

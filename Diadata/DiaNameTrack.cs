@@ -48,7 +48,7 @@ namespace TatehamaATS.Diadata
                     break;
                 case "回7200":
                     //元シナリオ：回 862 　館　浜　→江ノ原検／内容：発線３番振替 
-                    TrainState.RouteDatabase.CircuitList[0].ChengeName("館浜下り場内1LB");
+                    TrainState.RouteDatabase.CircuitList[0].ChengeName("館浜下り場内1LC");
                     TrainState.RouteDatabase.CircuitList[1].ChengeName("館浜上り出発3R");
                     break;
 
